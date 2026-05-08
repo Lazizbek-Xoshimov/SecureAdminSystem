@@ -13,6 +13,7 @@ namespace SecureAdminSystem
             {
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("Siz tizimga admin sifatida kirdingiz.");
                 Console.ResetColor();
             }
@@ -38,6 +39,7 @@ namespace SecureAdminSystem
                 {
                     Console.Clear();
                     Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.WriteLine("Noto'g'ri parol kiritdingiz.");
                     Console.ResetColor();
                     Console.WriteLine($"Qolgan urunishlaringiz soni {3-i} ta...");
