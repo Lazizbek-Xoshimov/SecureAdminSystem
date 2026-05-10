@@ -8,14 +8,17 @@ namespace SecureAdminSystem
         {
             Console.Clear();
             Console.WriteLine("Tizimga xush kelibsiz!");
+            Console.Write("Tizimga kirish parolingizni kiriting: ");
+            string password = ChangePasswordAppearance();
             
-            if (IsCorrectPassword())
+            if (IsCorrectPassword(password))
             {
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("Siz tizimga admin sifatida kirdingiz.");
                 Console.ResetColor();
+
             }
             else
             {
@@ -24,13 +27,10 @@ namespace SecureAdminSystem
             }
         }
 
-        public static bool IsCorrectPassword()
+        public static bool IsCorrectPassword(string password)
         {
-            for (int i = 1; i <= 3; i++)
+            for (int i = 1; i <= 2; i++)
             {
-                Console.Write("Iltimos parolingizni kiriting: ");
-                string password = Console.ReadLine();
-
                 if (password == "admin123")
                 {
                     return true;
@@ -43,10 +43,33 @@ namespace SecureAdminSystem
                     Console.WriteLine("Noto'g'ri parol kiritdingiz.");
                     Console.ResetColor();
                     Console.WriteLine($"Qolgan urunishlaringiz soni {3-i} ta...");
+
+                    Console.Write("Iltimos parolingizni qayta kiriting: ");
+                    password = ChangePasswordAppearance();
                 }
             }
             
             return false;
+        }
+
+        public static string ChangePasswordAppearance()
+        {
+            string password = string.Empty;
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+
+                if (key.Key == ConsoleKey.Enter)
+                    continue;
+
+                password += key.KeyChar;
+                Console.Write("*");
+
+            }while (key.Key != ConsoleKey.Enter);
+
+            return password;
         }
     }
 }
