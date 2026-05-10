@@ -5,7 +5,7 @@ admin-managed user system
 *The program provides a system that allows multiple roles to be managed by the admin.*
 
 ## 🪟 Preview                                  
-![password_check_option](assets/password_check_option.gif)
+![password_check_option](assets/password_check.gif)
 
 ### ⚙️ Technologies
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" width="30"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" width="30"/>
