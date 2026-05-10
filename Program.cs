@@ -8,76 +8,78 @@ namespace SecureAdminSystem
         {
             Console.Clear();
             Console.WriteLine("Tizimga xush kelibsiz!");
-            Console.Write("Tizimga kirish parolingizni kiriting: ");
-            string password = ChangePasswordAppearance();
-            
-            if (IsCorrectPassword(password))
+
+            bool infinity = true;
+
+            while(infinity)
             {
-                Console.Clear();
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine("Siz tizimga admin sifatida kirdingiz.");
-                Console.ResetColor();
-
-                Console.WriteLine("1. Foydalanuvchilar ro'yxati");
-                Console.WriteLine("2. Sozlamalar");
-                Console.WriteLine("3. Hisobotlar");
-                Console.WriteLine("4. Chiqish");
-
-                Console.Write("Kerakli bo'limni tanlang: ");
-                int option = int.Parse(Console.ReadLine());
-
-                switch (option)
+                Console.Write("Tizimga kirish parolingizni kiriting: ");
+                string password = ChangePasswordAppearance();
+                
+                if (IsCorrectPassword(password))
                 {
-                    case 1:
-                        {
-                            break;
-                        }
-                    case 2:
-                        {
-                            break;
-                        }
-                    case 3:
-                        {
-                            break;
-                        }
-                    case 4:
-                        {
-                            return;
-                            break;
-                        }
-                }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Keyinroq tizimga to'g'ri parol bilan kirishga harakat qilib ko'ring.");
-            }
-        }
+                    Console.Clear();
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("Siz tizimga admin sifatida kirdingiz.");
+                    Console.ResetColor();
 
-        public static bool IsCorrectPassword(string password)
-        {
-            for (int i = 1; i <= 2; i++)
-            {
-                if (password == "admin123")
-                {
-                    return true;
+                    Console.WriteLine("1. Foydalanuvchilar ro'yxati");
+                    Console.WriteLine("2. Sozlamalar");
+                    Console.WriteLine("3. Hisobotlar");
+                    Console.WriteLine("4. Chiqish");
+
+                    Console.Write("Kerakli bo'limni tanlang: ");
+                    int optionAdmin = int.Parse(Console.ReadLine());
+
+                    switch (optionAdmin)
+                    {
+                        case 1:
+                            {
+                                break;
+                            }
+                        case 2:
+                            {
+                                break;
+                            }
+                        case 3:
+                            {
+                                break;
+                            }
+                        case 4:
+                            {
+                                infinity = false;
+                                break;
+                            }
+                    }
                 }
                 else
                 {
                     Console.Clear();
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine("Noto'g'ri parol kiritdingiz.");
-                    Console.ResetColor();
-                    Console.WriteLine($"Qolgan urunishlaringiz soni {3-i} ta...");
-
-                    Console.Write("Iltimos parolingizni qayta kiriting: ");
-                    password = ChangePasswordAppearance();
+                    CountingTime();
                 }
+            } 
+        }
+
+        public static bool IsCorrectPassword(string password)
+        {
+            int countInputPassword = 2;
+            
+            while(countInputPassword > 0 && password != "admin123")
+            {
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("Noto'g'ri parol kiritdingiz.");
+                Console.ResetColor();
+                Console.WriteLine($"{countInputPassword} ta urunishlaringiz qoldi.");
+                Console.Write("Iltimos parolingizni qayta kiriting: ");
+                password = ChangePasswordAppearance();
+
+                countInputPassword --;
             }
             
-            return false;
+            return password == "admin123" ? true : false;
         }
 
         public static string ChangePasswordAppearance()
@@ -103,10 +105,30 @@ namespace SecureAdminSystem
                     password += key.KeyChar;
                     Console.Write("*");
                 }
-
             }while (key.Key != ConsoleKey.Enter);
+            Console.WriteLine();
 
             return password;
+        }
+
+        public static void CountingTime()
+        {
+            DateTime lockTime = DateTime.Now.AddSeconds(10);
+            int countdown = 10;
+
+            while (DateTime.Now < lockTime)
+            {
+                int remaining = lockTime.Second - DateTime.Now.Second;
+
+                if (countdown == remaining)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{remaining} sekunddan so'ng qayta uruning...");
+                    countdown --;
+                }
+            }
+
+            Console.Clear();
         }
     }
 }
